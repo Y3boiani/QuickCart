@@ -3,8 +3,10 @@ import "./globals.css";
 import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemeToggle from "@/components/ThemeToggle";
 
-const outfit = Outfit({ subsets: ['latin'], weight: ["300", "400", "500"] })
+const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata = {
   title: "QuickCart",
@@ -13,15 +15,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${outfit.className} antialiased text-gray-700`} >
-          <Toaster />
-          <AppContextProvider>
-            {children}
-          </AppContextProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${outfit.className} antialiased text-gray-700 
+          bg-white dark:bg-black
+          transition-colors duration-300 min-h-screen`}
+      >
+        <ClerkProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeToggle />
+            <Toaster />
+            <AppContextProvider>{children}</AppContextProvider>
+          </ThemeProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
