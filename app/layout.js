@@ -16,11 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${outfit.className} antialiased text-gray-700 
-          bg-white dark:bg-black
-          transition-colors duration-300 min-h-screen`}
-      >
+      <body className={`${outfit.className} antialiased bg-white text-gray-700 dark:bg-black dark:text-gray-100 transition-colors duration-300 min-h-screen`}>
         <ClerkProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ThemeToggle />
